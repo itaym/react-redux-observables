@@ -1,7 +1,21 @@
 import { ajax } from 'rxjs/ajax'
 import { getApiToken } from './authUtils'
 import { pickBy, identity, memoize } from 'lodash'
+import { share, tap } from 'rxjs/operators'
+import { of, Observable, timer } from 'rxjs'
+const memoise = func => {
+  let cache = {}
 
+  return (...args) => {
+    const cacheKey = JSON.stringify(args)
+    cache[cacheKey] = cache[cacheKey] || func(...args).pipe(share())
+
+    return cache[cacheKey].pipe(
+      tap(() => timer(1000).subscribe(() => delete cache[cacheKey]))
+    )
+  }
+}
+const ajaxCache = memoise(ajax.getJSON)
 const defaultHeaders = {
   contentType: {
     applicationJson: {
@@ -21,7 +35,7 @@ const defaultAuthHeaders = memoize(() => {
 })
 
 export const getJSON = (url, headers = {}) => {
-  return ajax.getJSON(url, {
+  return ajaxCache(url, {
     ...defaultAuthHeaders(),
     ...headers
   })

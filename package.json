@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@material-ui/styles": "^4.9.10",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",
@@ -22,6 +23,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.2.0",
     "rxjs": "^6.5.5",
+    "rxjs-compat": "^6.6.2",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
