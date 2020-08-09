@@ -4,7 +4,6 @@ const StyleSearch = {
     flexDirection: 'column'
   },
   paper: {
-    backGround: '#FFF',
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
@@ -19,24 +18,17 @@ const StyleSearch = {
     maxWidth: 650,
     margin: 'auto'
   },
-  icon_checked: {
-    fill: '#adff2f',
-    width: '1.5em',
-    height: '1.5em'
-  },
-  icon_not_checked: {
-    fill: '#ff0000',
-    width: '1.5em',
-    height: '1.5em'
-  },
   pagination: {
     maxWidth: 650,
-    margin: '40px auto'
+    margin: '20px auto'
   },
   message: {
     maxWidth: 650,
     margin: 'auto',
     color: '#757F90'
+  },
+  blur: {
+    filter: 'blur(3px)'
   }
 }
 

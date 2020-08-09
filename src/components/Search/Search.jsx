@@ -5,19 +5,11 @@ import { scrollToTop } from '../../utils/generalUtils'
 import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import Pagination from '@material-ui/lab/Pagination'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import Avatar from '@material-ui/core/Avatar'
-import CheckRoundedIcon from '@material-ui/icons/CheckRounded'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
 import InputBase from '@material-ui/core/InputBase'
 import Typography from '@material-ui/core/Typography'
-import { StyleSearch } from './StyleSEarch'
+import { StyleSearch } from './StyleSearch'
+import SearchTable from '../SearchTable'
 
 const useStyles = makeStyles(StyleSearch)
 
@@ -68,57 +60,24 @@ const Search = props => {
       <Paper className={classes.paper}>
         <InputBase
           className={classes.input}
-          placeholder="Search Jul"
-          inputProps={{ 'aria-label': 'Search Jul' }}
+          placeholder="SearchTable Jul"
+          inputProps={{ 'aria-label': 'SearchTable Jul' }}
           onChange={onSearchTextChange}
         />
       </Paper>
       {meta.total_count ? (
         <>
           <Pagination
-            className={classes.pagination}
+            className={`${classes.pagination} ${isLoading ? classes.blur : ''}`}
             onChange={onPageChange}
             count={meta.total_pages}
             page={meta.current_page}
             siblingCount={0}
             variant="outlined"
           />
-          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <TableCell align="left">Name</TableCell>
-                  <TableCell align="left">Price</TableCell>
-                  <TableCell align="left">Stock</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {products.map(product => (
-                  <TableRow key={product.id}>
-                    <TableCell align="left">
-                      <Avatar alt={product.name} src={product.image_url} />
-                    </TableCell>
-                    <TableCell align="left" style={{ maxWidth: '66%' }}>
-                      {product.name}
-                    </TableCell>
-                    <TableCell align="left">{product.price}</TableCell>
-                    <TableCell align="center">
-                      {!product.out_of_stock ? (
-                        <CheckRoundedIcon className={classes.icon_checked} />
-                      ) : (
-                        <ClearRoundedIcon
-                          className={classes.icon_not_checked}
-                        />
-                      )}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <SearchTable products={products} isLoading={isLoading} />
           <Pagination
-            className={classes.pagination}
+            className={`${classes.pagination} ${isLoading ? classes.blur : ''}`}
             onChange={onPageChange}
             count={meta.total_pages}
             page={meta.current_page}
@@ -136,7 +95,7 @@ const Search = props => {
           {isLoading
             ? '...'
             : search.text.length > 2
-            ? `Search for "${search.text}" has no results`
+            ? `SearchTable for "${search.text}" has no results`
             : 'No Data'}
         </Typography>
       )}
